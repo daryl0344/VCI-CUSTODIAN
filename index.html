@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VCI CUSTODIAN</title>
+<link rel="icon" href="images/vci-logo.jpg">   <!-- browser tab icon: change the file name to use another picture -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+<!-- index.html + style.css + script.js + images/. Login and register screens are the templates at the bottom;
+     every other screen is built by script.js (see the ROUTER section). -->
+<div id="auth"></div>
+<div class="app" hidden>
+  <aside id="sidebar" class="sidebar"></aside>
+  <div class="scrim" id="scrim"></div>
+  <div class="main">
+    <header id="topbar" class="topbar"></header>
+    <main id="content" class="content"></main>
+  </div>
+</div>
+<div id="toasts" aria-live="polite"></div>
+
+<!-- =====================================================================
+     PICTURES  -  change any picture here, any time
+       1. Put your .png or .jpg file inside the images/ folder.
+       2. Change the file name in the matching  src="..."  below.
+     The logo is in <template id="tpl-brand"> (sidebar) and in the two login/register
+     templates further down. The equipment pictures below are the choices shown in the
+     "Image" list when the admin adds or edits equipment, and the pictures used by the
+     sample equipment. Add a new picture by copying one line. (Pictures are optional.)
+     ===================================================================== -->
+<template id="tpl-brand">
+  <div class="brand"><div class="logo-tile mini"><img src="images/vci-logo.jpg" alt="VCI-CUSTODIAN Logo"></div><div><strong>VCI CUSTODIAN</strong><span>Sports Equipment Borrowing<br>and Return System</span></div></div>
+</template>
+<div id="equipment-pictures" hidden>
+  <img src="images/basketball.jpg" alt="Basketball">
+  <img src="images/volleyball.jpg" alt="Volleyball">
+  <img src="images/soccer-ball.jpg" alt="Soccer Ball">
+  <img src="images/badminton-racket.jpg" alt="Badminton Racket">
+  <img src="images/shuttlecock.jpg" alt="Shuttlecock">
+  <img src="images/table-tennis-paddle.jpg" alt="Table Tennis Paddle">
+  <img src="images/table-tennis-ball.jpg" alt="Table Tennis Ball">
+  <img src="images/volleyball-net.jpg" alt="Volleyball Net">
+  <img src="images/soccer-net.jpg" alt="Soccer Net">
+  <img src="images/table-tennis-net.jpg" alt="Table Tennis Net">
+  <img src="images/takraw.jpg" alt="Takraw">
+  <img src="images/whistle.jpg" alt="Whistle">
+  <img src="images/training-cones.jpg" alt="Training Cones">
+</div>
+
+<template id="tpl-login">
+<div class="auth">
+  <section class="auth-brand">
+    <div class="logo-tile big"><img src="images/vci-logo.jpg" alt="VCI-CUSTODIAN Logo"></div>
+    <h1>VCI CUSTODIAN</h1>
+    <p class="subtitle">Sports Equipment Borrowing and Return System</p>
+    <p class="school">Veritas College of Irosin</p>
+  </section>
+  <section class="auth-panel">
+    <form id="loginForm" class="auth-card" novalidate>
+      <h2>Log in</h2>
+      <p class="muted">Use your Admin or Student account.</p>
+      <div id="formAlert" class="alert alert-error" role="alert" hidden></div>
+      <div class="field"><label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" autofocus>
+        <small class="error" data-for="username"></small></div>
+      <div class="field pw-field"><label for="password">Password</label>
+<div class="pw-wrap"><input type="password" id="password" name="password" autocomplete="current-password" ><button type="button" class="pw-toggle" data-toggle="password" aria-label="Show or hide password">Show</button></div>
+<small class="error" data-for="password"></small></div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      <p class="auth-switch">New student? <a href="#/register">Register as Student</a></p>
+      <p class="auth-switch small"><a href="#" id="forgotLink">Forgot password?</a></p>
+    </form>
+  </section>
+</div>
+</template>
+<template id="tpl-register">
+<div class="auth auth-wide">
+  <section class="auth-brand">
+    <div class="logo-tile big"><img src="images/vci-logo.jpg" alt="VCI-CUSTODIAN Logo"></div>
+    <h1>VCI CUSTODIAN</h1>
+    <p class="subtitle">Student Registration</p>
+    <p class="school">Veritas College of Irosin</p>
+  </section>
+  <section class="auth-panel">
+    <div class="auth-card reg-card">
+      <h2>Create a student account</h2>
+      <p class="muted">Accounts created here are always Student accounts. They are saved in this browser only.</p>
+      <div id="formAlert" class="alert alert-error" role="alert" hidden></div>
+      <div id="successBox" class="alert alert-success" hidden></div>
+      <div class="reg-grid">
+        <form id="registerForm" novalidate>
+          <div class="field"><label for="studentId">Student ID</label><input type="text" id="studentId" name="studentId" autocomplete="off" placeholder="e.g. 2023-0001"><small class="error" data-for="studentId"></small></div>
+          <div class="field"><label for="name">Complete name</label><input type="text" id="name" name="name" autocomplete="name" placeholder="Last name, First name M."><small class="error" data-for="name"></small></div>
+          <div class="row2">
+            <div class="field"><label for="course">Course</label><input type="text" id="course" name="course" list="courseList" placeholder="e.g. BSIT"><datalist id="courseList"><option value="BSIT"><option value="BSED"><option value="BEED"><option value="BSBA"><option value="BSHM"><option value="BSCrim"></datalist><small class="error" data-for="course"></small></div>
+            <div class="field"><label for="yearLevel">Year level</label><select id="yearLevel" name="yearLevel"><option value="">Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select><small class="error" data-for="yearLevel"></small></div>
+          </div>
+          <div class="field"><label for="username">Username</label><input type="text" id="username" name="username" autocomplete="username" placeholder="4-20 letters, numbers, _ or ."><small class="error" data-for="username"></small></div>
+          <div class="field pw-field"><label for="password">Password (at least 6 characters)</label>
+<div class="pw-wrap"><input type="password" id="password" name="password" autocomplete="new-password" ><button type="button" class="pw-toggle" data-toggle="password" aria-label="Show or hide password">Show</button></div>
+<small class="error" data-for="password"></small></div><div class="field pw-field"><label for="confirmPassword">Confirm password</label>
+<div class="pw-wrap"><input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" ><button type="button" class="pw-toggle" data-toggle="confirmPassword" aria-label="Show or hide password">Show</button></div>
+<small class="error" data-for="confirmPassword"></small></div>
+          <button type="submit" class="btn btn-primary btn-block" id="createBtn">Create Account</button>
+          <p class="auth-switch">Already registered? <a href="#/login">Back to login</a></p>
+        </form>
+        <aside class="review" aria-live="polite">
+          <h3>Review your details</h3>
+          <p class="muted small">Check everything before you click Create Account.</p>
+          <dl id="reviewBox"></dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
+<script src="script.js"></script>
+</body>
+</html>
